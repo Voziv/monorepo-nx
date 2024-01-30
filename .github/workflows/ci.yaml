@@ -1,0 +1,52 @@
+name: CI
+
+on:
+  pull_request:
+
+# Needed for nx-set-shas when run on the main branch
+permissions:
+  actions: read
+  contents: read
+
+jobs:
+  run-ci:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Fetch the entire repo
+          show-progress: false
+          ref: ${{ github.event.pull_request.head.ref }}
+
+      # This line is needed for nx affected to work when CI is running on a PR
+      - run: git branch --track main origin/main
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+
+      - name: Install monorepo
+        run: npm ci
+
+      - name: Derive appropriate SHAs for base and head for `nx affected` commands
+        uses: nrwl/nx-set-shas@v4
+
+      - name: CI checks
+        run: npx nx affected -t lint,test,build
+
+  results:
+    if: ${{ always() }}
+    runs-on: ubuntu-latest
+    name: 'Results'
+    needs:
+      - run-ci
+    steps:
+      - run: exit 1
+        # see https://stackoverflow.com/a/67532120/4907315
+        if: >-
+          ${{
+               contains(needs.*.result, 'failure')
+            || contains(needs.*.result, 'cancelled')
+          }}

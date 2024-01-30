@@ -1,0 +1,10 @@
+{
+  "changelog": true,
+  "npm": false,
+  "github": true,
+  "repositoryUrl": "git@github.com:voziv/monorepo-nx.git",
+  "tagFormat": "${PROJECT_NAME}-${version}",
+  "branches": [
+    "main"
+  ]
+}
