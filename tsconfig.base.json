@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "lib": [
+      "es2022"
+    ],
+    "module": "commonjs",
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "sourceMap": true,
+    "strict": false,
+    "target": "es6"
+  },
+  "exclude": [
+    "**/*.test.js",
+    "**/__mocks__",
+    "**/__test__",
+    "**/__tests__",
+    "**/jest.config.js",
+    "**/jest.config.ts",
+    "**/tests"
+  ]
+}

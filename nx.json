@@ -1,0 +1,19 @@
+{
+  "targetDefaults": {
+    "test": {
+      "cache": true
+    },
+    "build": {
+      "cache": true
+    },
+    "lint": {
+      "cache": true
+    },
+    "copy-files": {
+      "cache": true
+    }
+  },
+  "affected": {
+    "defaultBase": "main"
+  }
+}
